@@ -3,6 +3,7 @@ set nobackup
 colorscheme pablo
 set ruler
 set relativenumber
+set number
 
 syntax on
 set cindent
