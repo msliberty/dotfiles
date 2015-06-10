@@ -36,6 +36,8 @@ fi
 
 # aliases and functions
 
+alias sudoku='sudo su'
+
 if [[ -v osx ]]; then
 	export CLICOLOR=
 else # assume GNU/Linux or compatible
