@@ -1,0 +1,9 @@
+# This is Git's per-user configuration file.
+[push]
+	default = simple
+[merge]
+	conflictstyle = diff3
+[branch]
+	autosetuprebase = always
+[pretty]
+	msl = %C(auto)%h %D%Creset%nAuthor: %<(20)%aN %C(cyan)%<(20)%ar %aD%Creset%nCommit: %<(20)%cN %C(cyan)%<(20)%cr %cD%Creset%nDescends from: %p%n%n%w(0,2,2)%B

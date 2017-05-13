@@ -5,6 +5,10 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
+function parse_git_branch {
+   git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+}
+
 PS1='[\u@\h \w]\n\$ '
 
 
@@ -49,6 +53,7 @@ alias la='ls -A'
 alias ll='ls -Al'
 
 alias ia='ip addr'
+alias pingtest='ping 8.8.8.8'
 
 # watch with specified frequency
 alias wn='watch -n'
@@ -59,14 +64,18 @@ alias wia='watch -n .5 ip addr'
 
 # git aliases
 alias g='git'
-alias gl='git log --decorate --abbrev-commit --relative-date'
+alias gp='git pull'
+alias gl='git log --decorate --abbrev-commit --relative-date --pretty=msl'
 alias gst='git status -sb'
+alias gg='git log -n1 --decorate --abbrev-commit --pretty=oneline; git status -sb'
 #if [[ -f /usr/share/bash-completion/completions/git ]]; then
 	#source /usr/share/bash-completion/completions/git
 #elif [[ -f /usr/local/etc/bash_completion.d/git-completion.bash ]]; then
 	#source /usr/local/etc/bash_completion.d/git-completion.bash
 #fi
 __git_complete g __git_main
+
+alias gpni='git pull && npm install'
 
 # make alias for previous command
 function aebb {
@@ -76,6 +85,11 @@ function aebb {
 		alias $1="$(history -p !!)"
 	fi
 }
+
+# npm aliases
+
+alias showlinks='(cd node_modules/; find . -type l -maxdepth 1; find @integrity -type l -maxdepth 1)'
+alias ni='npm install'
 
 
 
@@ -87,5 +101,6 @@ export EDITOR=$(which vim)
 
 [[ -f ~/.bashrc.local-after ]] && . ~/.bashrc.local-after
 
-#THIS MUST BE AT THE END OF THE FILE FOR GVM TO WORK!!!
-[[ -s "/Users/msl/.gvm/bin/gvm-init.sh" ]] && source "/Users/msl/.gvm/bin/gvm-init.sh"
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/Users/msl/.sdkman"
+[[ -s "/Users/msl/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/msl/.sdkman/bin/sdkman-init.sh"
