@@ -5,6 +5,8 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
+[[ -f ~/.bashrc.local-before ]] && . ~/.bashrc.local-before
+
 function parse_git_branch {
    git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
 }
@@ -30,10 +32,18 @@ function homebrewInstalled {
 	[[ -v osx ]] && commandInPath brew
 }
 
+function nixInstalled {
+	[[ -v osx ]] && commandInPath nix-env
+}
+
 
 
 if homebrewInstalled && [[ -f $(brew --prefix)/etc/profile.d/bash_completion.sh ]]; then
 	source $(brew --prefix)/etc/profile.d/bash_completion.sh
+elif nixInstalled && [[ -f ~/.nix-profile/etc/profile.d/bash_completion.sh ]]; then
+	export XDG_DATA_DIRS="$HOME/.nix-profile/share/:$XDG_DATA_DIRS"
+	export BASH_COMPLETION_COMPAT_DIR=~/.nix-profile/etc/bash_completion.d
+	source ~/.nix-profile/etc/profile.d/bash_completion.sh
 fi
 
 
