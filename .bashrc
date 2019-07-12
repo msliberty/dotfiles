@@ -41,7 +41,7 @@ function nixInstalled {
 if homebrewInstalled && [[ -f $(brew --prefix)/etc/profile.d/bash_completion.sh ]]; then
 	source $(brew --prefix)/etc/profile.d/bash_completion.sh
 elif nixInstalled && [[ -f ~/.nix-profile/etc/profile.d/bash_completion.sh ]]; then
-	export XDG_DATA_DIRS="$HOME/.nix-profile/share/:$XDG_DATA_DIRS"
+	export XDG_DATA_DIRS="$HOME/.nix-profile/share/:$HOME/.local/share/:$XDG_DATA_DIRS"
 	export BASH_COMPLETION_COMPAT_DIR=~/.nix-profile/etc/bash_completion.d
 	source ~/.nix-profile/etc/profile.d/bash_completion.sh
 fi
